@@ -1,0 +1,19 @@
+﻿<Window x:Class="LQQStudents.ShouldHaveWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LQQStudents"
+        mc:Ignorable="d"
+        Title="ShouldHaveWindow" Height="329.268" Width="919.756">
+    <Grid>
+        <Button Content="1)加载数据" HorizontalAlignment="Left" Margin="20,23,0,0" VerticalAlignment="Top" Width="105" Click="Button_Click" Height="39"/>
+        <Button Content="2)数据计算" HorizontalAlignment="Left" Margin="166,23,0,0" VerticalAlignment="Top" Width="99" Click="Button_Click_1" Height="39"/>
+        <Button Content="3)数据导出" HorizontalAlignment="Left" Margin="313,23,0,0" VerticalAlignment="Top" Width="95" Click="Button_Click_2" Height="39"/>
+        <DataGrid HorizontalAlignment="Left" Height="193" Margin="20,83,0,0" Name="dgLoad"  VerticalAlignment="Top" Width="414"/>
+        <DataGrid HorizontalAlignment="Left" Height="193" Margin="495,83,0,0" x:Name="dg_Result"  VerticalAlignment="Top" Width="409"/>
+        <Label Content="" Name="lbMessage" HorizontalAlignment="Left" Margin="20,52,0,0" VerticalAlignment="Top"/>
+        <Label Content="" Name="lbMessage2" HorizontalAlignment="Left" Margin="495,52,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>

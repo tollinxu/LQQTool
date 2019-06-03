@@ -1,0 +1,20 @@
+﻿<Window x:Class="LQQStudents.btnEveryStudentEveryOrder"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:LQQStudents"
+        mc:Ignorable="d"
+        Title="btnEveryStudentEveryOrder" Height="478.673" Width="954.146">
+    <Grid>
+        <Button Content="选择数据源" HorizontalAlignment="Left" Margin="31,21,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+        <Label Content="" Name="lbMessage" HorizontalAlignment="Left" Margin="813,15,0,0" VerticalAlignment="Top"/>
+        <Button Content="分析" HorizontalAlignment="Left" Margin="138,21,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_1"/>
+        <DataGrid HorizontalAlignment="Left" Height="281" Name="lvOrders" Margin="10,79,0,0" VerticalAlignment="Top" Width="409">
+
+        </DataGrid>
+        <DataGrid HorizontalAlignment="Left" Name="newOrder" Height="281" Margin="455,79,0,0" VerticalAlignment="Top" Width="483"/>
+        <Button Content="导出" HorizontalAlignment="Left" Margin="271,21,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_2"/>
+        <ProgressBar HorizontalAlignment="Left" Name="progress" Height="8" Margin="10,384,0,0" VerticalAlignment="Top" Width="914"/>
+    </Grid>
+</Window>
