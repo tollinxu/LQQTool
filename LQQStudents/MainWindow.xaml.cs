@@ -253,6 +253,12 @@ namespace LQQStudents
             ShouldHaveWindow window = new ShouldHaveWindow();
             window.Show();
         }
+
+        private void Button_Click_5(object sender, RoutedEventArgs e)
+        {
+            var window = new ExcelDivid();
+            window.Show();
+        }
     }
 
     public class OrderInfo

@@ -70,6 +70,9 @@
     <Compile Include="btnEveryStudentEveryOrder.xaml.cs">
       <DependentUpon>btnEveryStudentEveryOrder.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ExcelDivid.xaml.cs">
+      <DependentUpon>ExcelDivid.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Models\StudentAnalysisModel.cs" />
     <Compile Include="ShouldHaveWindow.xaml.cs">
       <DependentUpon>ShouldHaveWindow.xaml</DependentUpon>
@@ -81,6 +84,10 @@
       <DependentUpon>WindowLeft40.xaml</DependentUpon>
     </Compile>
     <Page Include="btnEveryStudentEveryOrder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ExcelDivid.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

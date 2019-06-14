@@ -16,5 +16,9 @@
         <DataGrid HorizontalAlignment="Left" Name="newOrder" Height="281" Margin="455,79,0,0" VerticalAlignment="Top" Width="483"/>
         <Button Content="导出" HorizontalAlignment="Left" Margin="271,21,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_2"/>
         <ProgressBar HorizontalAlignment="Left" Name="progress" Height="8" Margin="10,384,0,0" VerticalAlignment="Top" Width="914"/>
+        <Label Content="第:" HorizontalAlignment="Left" Margin="31,413,0,0" VerticalAlignment="Top"/>
+        <Label Content="" Name="lbValue" HorizontalAlignment="Left" Margin="88,413,0,0" VerticalAlignment="Top"/>
+        <Label Content="" Name="lbTotal" HorizontalAlignment="Left" Margin="138,413,0,0" VerticalAlignment="Top"/>
+        <Label Content="" Name="lbTime" HorizontalAlignment="Left" Margin="482,413,0,0" VerticalAlignment="Top" Width="442"/>
     </Grid>
 </Window>

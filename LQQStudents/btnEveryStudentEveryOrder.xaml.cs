@@ -51,64 +51,76 @@ namespace LQQStudents
             lbMessage.Content = "begin analsys";
             newOrders = orderInfos.ToList();
 
-            var result = consumInfos.OrderBy(_ => _.ComsumDate);
+            var result = consumInfos.OrderBy(_ => _.ComsumDate).GroupBy(_=>_.MemberId).ToDictionary(_=>_.Key, __=>__.ToList());
 
             var students = newOrders.Select(o => o.MemberId).Distinct();
+
+            var groupOrders = newOrders.GroupBy(_ => _.MemberId).ToDictionary(_ => _.Key, __ => __.ToList());
 
             var studentConsumcount = new ConcurrentDictionary<string, int>();
 
             var totalCount = students.Count();
             var current = 0;
             progress.Maximum = totalCount;
+            var begin = DateTime.Now;
+            lbTotal.Content = "/" + totalCount;
             Task.Factory.StartNew(() =>
             {
-                foreach (var studentId in students)
+                Parallel.ForEach(groupOrders, studentOrders =>
+                //foreach (var studentId in students)
                 {
                     current++;
-                    var orders = newOrders.Where(o => o.MemberId == studentId).ToArray();
-                    if (orders == null || !orders.Any())
+                    var orders = studentOrders.Value;
+                    var studentId = studentOrders.Key;
+                    //var orders = groupOrders[studentId];
+                    if (orders == null || !orders.Any() || !result.ContainsKey(studentId))
                     {
+                        return;
+                       // continue;
                     }
-                    else
+                    try
                     {
-                        try
+                        int index = 0;
+                        int length = orders.Count;
+                        var items = result[studentId];
+                        foreach (var item in items)
                         {
-                            int index = 0;
-                            int length = orders.Length;
-                            var items = result.Where(r => r.MemberId == studentId).OrderBy(_ => _.ComsumDate);
-                            foreach (var item in items)
+                            if (index >= length)
                             {
-                                if (index >= length)
-                                {
-                                    break;
-                                }
-                                var order = orders[index];
-                                if ((index + 1) < length)
-                                {
-                                    var nextOrder = orders[index + 1];
-                                    order.IsExtend = true;
-                                    order.ExtendOrderId = nextOrder.OrderId;
-                                    order.ExtendTime = nextOrder.PayTime;
-                                }
+                                break;
+                            }
+                            var order = orders[index];
+                            if ((index + 1) < length)
+                            {
+                                var nextOrder = orders[index + 1];
+                                order.IsExtend = true;
+                                order.ExtendOrderId = nextOrder.OrderId;
+                                order.ExtendTime = nextOrder.PayTime;
+                            }
 
-                                if (EachOrderEachStudent(studentConsumcount, item, order))
-                                {
-                                    index++;
-                                }
+                            if (EachOrderEachStudent(studentConsumcount, item, order))
+                            {
+                                index++;
                             }
                         }
-                        catch (Exception ex)
-                        {
-                            throw ex;
-                        }
-
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(studentId);
                     }
 
-                    this.Dispatcher.BeginInvoke(new Action(() => progress.Value = current));
-                }
+                    this.Dispatcher.BeginInvoke(new Action(() => {
+                        progress.Value = current;
+                        lbValue.Content = current;
+                        }));
 
-                newOrder.ItemsSource = newOrders;
-                lbMessage.Content = "analsys finish";
+                });
+                var end = DateTime.Now;
+                this.Dispatcher.BeginInvoke(new Action(() => {
+                    newOrder.ItemsSource = newOrders;
+                    lbMessage.Content = "analsys finish";
+                    lbTime.Content = "开始于:" + begin.ToString("HH:mm:ss.fff") + "-" + end.ToString("HH:mm:ss.fff");
+                }));
             });
 
             //foreach (var order in newOrders.Where(_ => !string.IsNullOrWhiteSpace(_.FinishYearMonth)))

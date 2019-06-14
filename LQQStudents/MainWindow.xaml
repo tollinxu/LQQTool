@@ -23,6 +23,7 @@
         <Button Content="学生逐月统计" HorizontalAlignment="Left" Margin="954,29,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click_4"/>
         <Button x:Name="btnyingxushixu" Content="风投续班率" HorizontalAlignment="Left" Margin="1056,17,0,0" VerticalAlignment="Top" Width="130" Height="31" Click="btnyingxushixu_Click"/>
         <Button Content="每个学生的每笔订单续费" HorizontalAlignment="Left" Margin="189,115,0,0" VerticalAlignment="Top" Width="232" RenderTransformOrigin="-0.138,-0.196" Height="31" Click="btnEveryStudentEveryOrder_Click" AutomationProperties.Name="btnEveryStudentEveryOrder"/>
+        <Button Content="Excel拆分" ToolTip="依据省份拆分excel" HorizontalAlignment="Left" Height="29" Margin="499,117,0,0" VerticalAlignment="Top" Width="116" Click="Button_Click_5" />
 
     </Grid>
 </Window>
