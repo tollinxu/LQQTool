@@ -85,43 +85,48 @@ namespace LQQStudents
             }
             var index = cbCols.SelectedIndex;
             var groupData = Datas.GroupBy(_ => _[index]).ToDictionary(_ => _.Key, __ => __.ToList());
-
-            var saveFile = new SaveFileDialog();
-            if (saveFile.ShowDialog() == true)
+            using (var fbd = new System.Windows.Forms.FolderBrowserDialog())
             {
-                var wk = new XSSFWorkbook();
-                foreach (var sheet in groupData)
+                System.Windows.Forms.DialogResult result = fbd.ShowDialog();
+                if (result == System.Windows.Forms.DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
                 {
-                    var rowIndex = 0;
-                    var tb = wk.CreateSheet(sheet.Key);
-                    IRow row = tb.CreateRow(rowIndex);
-                    var colIndex = 1;
-                    foreach (var head in Headers)
+                    var dir = fbd.SelectedPath;
+                    
+                    foreach (var sheet in groupData)
                     {
-                        ICell cell = row.CreateCell(colIndex);  //在第二行中创建单元格
-                        cell.SetCellValue(head);//循环往第二行的单元格中添加数据
-                        colIndex++;
-                    }                    
-
-                    foreach (var data in sheet.Value)
-                    {
-                        rowIndex++;
-                        row = tb.CreateRow(rowIndex);
-                        colIndex = 1;
-                        foreach (var value in data)
+                        var wk = new XSSFWorkbook();
+                        var rowIndex = 0;
+                        var tb = wk.CreateSheet(sheet.Key);
+                        IRow row = tb.CreateRow(rowIndex);
+                        var colIndex = 0;
+                        foreach (var head in Headers)
                         {
                             ICell cell = row.CreateCell(colIndex);  //在第二行中创建单元格
-                            cell.SetCellValue(value);//循环往第二行的单元格中添加数据
+                            cell.SetCellValue(head);//循环往第二行的单元格中添加数据
                             colIndex++;
                         }
-                    }
-                }
 
-                using (FileStream fs = File.OpenWrite(saveFile.FileName)) //打开一个xls文件，如果没有则自行创建，如果存在myxls.xls文件则在创建是不要打开该文件！
-                {
-                    wk.Write(fs);   //向打开的这个xls文件中写入mySheet表并保存。                    
+                        foreach (var data in sheet.Value)
+                        {
+                            rowIndex++;
+                            row = tb.CreateRow(rowIndex);
+                            colIndex = 0;
+                            foreach (var value in data)
+                            {
+                                ICell cell = row.CreateCell(colIndex);  //在第二行中创建单元格
+                                cell.SetCellValue(value);//循环往第二行的单元格中添加数据
+                                colIndex++;
+                            }
+                        }
+
+                        var fileName = System.IO.Path.Combine(dir, sheet.Key + ".xlsx");
+                        using (FileStream fs = File.OpenWrite(fileName)) 
+                        {
+                            wk.Write(fs);   //向打开的这个xls文件中写入mySheet表并保存。                    
+                        }
+                    }
+                    System.Windows.MessageBox.Show("创建好了， 给个掌声呗！");
                 }
-                MessageBox.Show("创建好了， 给个掌声呗！");
             }
         }
     }
